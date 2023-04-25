@@ -1,5 +1,6 @@
 const Task = require('../model/taskModel');
 const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
 exports.getTasks = catchAsync(async (req, res, next) => {
   const tasks = await Task.find();
@@ -16,6 +17,8 @@ exports.getTasks = catchAsync(async (req, res, next) => {
 exports.getTask = catchAsync(async (req, res, next) => {
   const taskId = req.params.id;
   const task = await Task.findById(taskId);
+
+  if (!task) return next(new AppError('No task found with this id', 404));
 
   res.status(200).json({
     status: 'success',
@@ -37,11 +40,12 @@ exports.createTask = catchAsync(async (req, res, next) => {
 });
 
 exports.updateTask = catchAsync(async (req, res, next) => {
-  const taskId = req.params.id;
-  const task = await Task.findOneAndUpdate(taskId, req.body, {
+  const task = await Task.findOneAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
+
+  if (!task) return next(new AppError('No task found with this id', 404));
 
   res.status(200).json({
     status: 'success',
@@ -53,7 +57,9 @@ exports.updateTask = catchAsync(async (req, res, next) => {
 
 exports.deleteTask = catchAsync(async (req, res, next) => {
   const taskId = req.params.id;
-  await Task.findOneAndDelete(taskId);
+
+  const task = await Task.findOneAndDelete(taskId);
+  if (!task) return next(new AppError('No task found with this id', 404));
 
   res.status(204).json({
     status: 'deleted',

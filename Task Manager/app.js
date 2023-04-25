@@ -5,6 +5,7 @@ const morgan = require('morgan');
 
 const userRouter = require('./router/userRouter');
 const taskRouter = require('./router/taskRouter');
+const AppError = require('./utils/appError');
 
 const app = express();
 
@@ -13,17 +14,27 @@ app.use(express.json());
 
 dotenv.config({ path: './config.env' });
 
-app.get('/', (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    message: 'Wellcome from our homepage.',
-  });
-});
-
 // Mounting routes
 app.use('/api/user', userRouter);
 app.use('/api/task', taskRouter);
 
+// Error Handling
+app.use('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on the server!`, 404));
+});
+
+app.use((err, req, res, next) => {
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || 'error';
+
+  res.status(err.statusCode).json({
+    status: err.status,
+    message: err.message,
+    error: err,
+  });
+});
+
+// SERVER
 // Connect mongodb useing mongoose
 mongoose
   .connect(process.env.DATABASE, {
