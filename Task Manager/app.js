@@ -1,3 +1,4 @@
+const path = require('path');
 const mongoose = require('mongoose');
 const express = require('express');
 const dotenv = require('dotenv');
@@ -5,18 +6,25 @@ const morgan = require('morgan');
 
 const userRouter = require('./router/userRouter');
 const taskRouter = require('./router/taskRouter');
+const viewsRouter = require('./router/viewsRouter');
 const AppError = require('./utils/appError');
 
 const app = express();
 
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+
 app.use(morgan('dev'));
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 dotenv.config({ path: './config.env' });
 
 // Mounting routes
 app.use('/api/user', userRouter);
 app.use('/api/task', taskRouter);
+app.use('/', viewsRouter);
 
 // Error Handling
 app.use('*', (req, res, next) => {

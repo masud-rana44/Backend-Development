@@ -1,0 +1,16 @@
+extends base
+
+block content 
+  div.wrapper
+    h3.heading Login
+    form.form--login
+      div.row
+        label(for="email") Email
+        input(type="email", name="email", id="email", placeholder="Type your email", required)
+      div.row
+        label(for="password") Password
+        input(type="password", name="password", id="password", placeholder="Type your password", required)
+      a.link.link--forgot(href="#") Forgot password?
+      button.btn.btn--login(type="submit") Login
+    span.signup-text Not a member?     | 
+      a.link(href="/signup") Signup now

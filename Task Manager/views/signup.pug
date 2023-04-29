@@ -1,0 +1,21 @@
+extends base
+
+block content 
+  div.wrapper
+    h3.heading Create Account
+    form.form--login
+      div.row
+        label(for="name") Name
+        input(type="text", name="name", id="name", placeholder="Type your name", required)
+      div.row
+        label(for="email") Email
+        input(type="email", name="email", id="email", placeholder="Type your email", required)
+      div.row
+        label(for="password") Password
+        input(type="password", name="password", id="password", placeholder="Type your password", required)
+      div.row
+        label(for="passwordConfirm") Confirm Password
+        input(type="password", name="passwordConfirm", id="passwordConfirm", placeholder="Confirm your password", required)
+      button.btn.btn--login(type="submit") Sign up
+    span.login-text Already have an account?
+      a.link(href="/login") Login now

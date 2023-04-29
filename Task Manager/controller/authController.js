@@ -51,3 +51,39 @@ exports.login = catchAsync(async (req, res, next) => {
   // 3) If everything ok, send token to the client
   createSendToken(user, 200, res);
 });
+
+exports.protect = catchAsync(async (req, res, next) => {
+  // 1) Getting token and check of its there
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  }
+
+  if (!token)
+    return next(
+      new AppError('You are not logged in! Please log in to get access.', 401)
+    );
+
+  // 2) Varification token
+  const decode = await jwt.verify(token, process.env.JWT_SECRET);
+
+  // 3) Check if user still exists
+  const currentUser = await User.findById(decode.id);
+
+  if (!currentUser)
+    return next(
+      new AppError('The user belonging to this id, Does no longer exists.', 404)
+    );
+
+  // 4) Check user changed password after the token wass issued
+  if (currentUser.changePasswordAfter(decode.iat))
+    return next(
+      new AppError('User recently changed password! Please log in again.', 401)
+    );
+
+  // 5) Grand access to protected routes
+  next();
+});
