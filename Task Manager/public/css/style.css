@@ -103,3 +103,24 @@ body {
   border-radius: 3rem;
   cursor: pointer;
 }
+
+.form--task {
+  display: flex;
+  align-items: center;
+}
+
+.form--task .row {
+  margin: 0;
+}
+
+.form--task .row input {
+  display: inline;
+  font-size: 1.8rem;
+}
+
+.btn--addTask {
+  display: inline;
+  width: 15%;
+  border-radius: 0;
+  margin: 0;
+}
