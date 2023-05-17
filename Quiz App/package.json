@@ -1,0 +1,18 @@
+{
+  "name": "quiz-app",
+  "version": "1.0.0",
+  "description": "Simple quiz app for learning node and mongoDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongodb": "^5.5.0",
+    "moongose": "^1.0.0"
+  }
+}
