@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="./css/style.css")
+    title Quiz App | Choose the correct one
+  body
+    div.container
+      h2.heading-primary Quiz Application
+      div.question
+        p.name JavaScript is an ____ language?
+        div.group
+          input(type="checkbox", name="op-1", id="op-1")
+          label(for="op-1") Object Oriented
+        div.group
+          input(type="checkbox", name="op-2", id="op-2")
+          label(for="op-2") Object Based
+        div.group
+          input(type="checkbox", name="op-3", id="op-3")
+          label(for="op-3") Procedural
+        div.group
+          input(type="checkbox", name="op-4", id="op-4")
+          label(for="op-4") Functional
+      div.btns
+        button.btn.btn--prev Prev
+        button.btn.btn--next Next

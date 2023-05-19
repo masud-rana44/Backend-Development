@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="./css/style.css")
+    title Quiz App | Welcome
+  body
+    .container
+      h2.heading-primary Quiz Application
+      ol.rules
+        li You will be asked 10 question one after another
+        li 10 Points is awarded for the correct answer
+        li Each question has four options, you can choose one of them
+        li You can review and change answer before the quiz finish
+        li The result will be declared at the end of the quiz
+      form.form
+        input(type="text", name="username", id="username", placeholder="username", spellcheck="false", required)
+        button.btn.btn-submit(type="submit") Start Quiz
+    script(src='/js/index.js')
